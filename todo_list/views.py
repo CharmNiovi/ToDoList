@@ -12,13 +12,13 @@ class TaskListView(generic.ListView):
 
 class TaskCreateView(generic.CreateView):
     model = Task
-    fields = ("title", "content", "deadline", "tags")
+    fields = ("content", "deadline", "tags")
     success_url = reverse_lazy("todo_list:task-list")
 
 
 class TaskUpdateView(generic.UpdateView):
     model = Task
-    fields = ("title", "content", "deadline", "tags")
+    fields = ("content", "deadline", "tags")
     success_url = reverse_lazy("todo_list:task-list")
 
 
@@ -45,3 +45,20 @@ class TaskSwitchToUncompletedView(generic.RedirectView):
 
 class TagListView(generic.ListView):
     queryset = Tag.objects.all()
+
+
+class TagCreateView(generic.CreateView):
+    model = Tag
+    fields = ("name", )
+    success_url = reverse_lazy("todo_list:tag-list")
+
+
+class TagUpdateView(generic.UpdateView):
+    model = Tag
+    fields = ("name", )
+    success_url = reverse_lazy("todo_list:tag-list")
+
+
+class TagDeleteView(generic.DeleteView):
+    model = Tag
+    success_url = reverse_lazy("todo_list:tag-list")
