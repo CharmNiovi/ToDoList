@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-  <a class="btn btn-primary" href="{% url 'todo_list:task_create' %}">Add new task</a>
+  <a class="btn btn-primary" href="{% url 'todo_list:task-create' %}">Add new task</a>
   {% for task in object_list %}
     <p>
       {{ task.title }}
@@ -22,5 +22,7 @@
       {{ tag }}
       </p>
       {% endfor %}
+    <a class="btn btn-primary" href="{% url 'todo_list:task-update' task.pk %}">Update task</a>
+    <a class="btn btn-primary" href="{% url 'todo_list:task-delete' task.pk %}">Delete task</a>
   {% endfor %}
 {% endblock %}

@@ -6,10 +6,6 @@
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" class="btn btn-primary">
-    {% if object %}
-      <a class="btn btn-primary" href="{% url 'task_board:project-detail' object.pk %}">Cancel</a>
-    {% else %}
-      <a class="btn btn-primary" href="{% url 'todo_list:task_list' %}">Cancel</a>
-    {% endif %}
+      <a class="btn btn-primary" href="{% url 'todo_list:task-list' %}">Cancel</a>
   </form>
 {% endblock %}
