@@ -14,15 +14,15 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     fields = ("title", "content", "deadline", "tags")
-    success_url = reverse_lazy("todo_list:task_list")
+    success_url = reverse_lazy("todo_list:task-list")
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     fields = ("title", "content", "deadline", "tags")
-    success_url = reverse_lazy("todo_list:task_list")
+    success_url = reverse_lazy("todo_list:task-list")
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
-    success_url = reverse_lazy("todo_list:task_list")
+    success_url = reverse_lazy("todo_list:task-list")
