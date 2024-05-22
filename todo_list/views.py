@@ -1,4 +1,4 @@
-from django.shortcuts import reverse
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 
@@ -14,6 +14,15 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     fields = ("title", "content", "deadline", "tags")
+    success_url = reverse_lazy("todo_list:task_list")
 
-    def get_success_url(self):
-        return reverse("todo_list:task_list")
+
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Task
+    fields = ("title", "content", "deadline", "tags")
+    success_url = reverse_lazy("todo_list:task_list")
+
+
+class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Task
+    success_url = reverse_lazy("todo_list:task_list")
