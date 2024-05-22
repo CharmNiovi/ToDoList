@@ -29,10 +29,10 @@ urlpatterns = [
          TaskSwitchToUncompletedView.as_view(),
          name="task-switch-to-undone"),
 
-    path('tag/', TagListView.as_view(), name="tag-list"),
-    path('tag/create/', TagCreateView.as_view(), name="tag-create"),
-    path('tag/<int:pk>/update/', TagUpdateView.as_view(), name="tag-update"),
-    path('tag/<int:pk>/delete/', TagDeleteView.as_view(), name="tag-delete"),
+    path('tags/', TagListView.as_view(), name="tag-list"),
+    path('tags/create/', TagCreateView.as_view(), name="tag-create"),
+    path('tags/<int:pk>/update/', TagUpdateView.as_view(), name="tag-update"),
+    path('tags/<int:pk>/delete/', TagDeleteView.as_view(), name="tag-delete"),
 ]
 
 app_name = "todo_list"
