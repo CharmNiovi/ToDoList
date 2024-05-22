@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+  <a class="btn btn-primary" href="{% url 'todo_list:task_create' %}">Add new task</a>
   {% for task in object_list %}
     <p>
       {{ task.title }}

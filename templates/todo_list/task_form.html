@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% load crispy_forms_filters %}
+  <h1>{{ object|yesno:"Update,Create" }} Task</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-primary">
+    {% if object %}
+      <a class="btn btn-primary" href="{% url 'task_board:project-detail' object.pk %}">Cancel</a>
+    {% else %}
+      <a class="btn btn-primary" href="{% url 'todo_list:task_list' %}">Cancel</a>
+    {% endif %}
+  </form>
+{% endblock %}
