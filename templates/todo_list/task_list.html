@@ -16,6 +16,8 @@
     </p>
     <p>
       {{ task.done }}
+    <a href="{% url 'todo_list:task-switch-to-done' task.pk %}" class="btn btn-primary">Done</a>
+    <a href="{% url 'todo_list:task-switch-to-undone' task.pk %}" class="btn btn-primary">Undone</a>
     </p>
     {% for tag in task.tags.all %}
       <p>
@@ -23,6 +25,6 @@
       </p>
       {% endfor %}
     <a class="btn btn-primary" href="{% url 'todo_list:task-update' task.pk %}">Update task</a>
-    <a class="btn btn-primary" href="{% url 'todo_list:task-delete' task.pk %}">Delete task</a>
+    <a class="btn btn-danger" href="{% url 'todo_list:task-delete' task.pk %}">Delete task</a>
   {% endfor %}
 {% endblock %}
