@@ -15,9 +15,13 @@
       {{ task.deadline }}
     </p>
     <p>
-      {{ task.done }}
-    <a href="{% url 'todo_list:task-switch-to-done' task.pk %}" class="btn btn-primary">Done</a>
+    {% if task.done %}
+      Done
     <a href="{% url 'todo_list:task-switch-to-undone' task.pk %}" class="btn btn-primary">Undone</a>
+    {% else %}
+      Undone
+    <a href="{% url 'todo_list:task-switch-to-done' task.pk %}" class="btn btn-primary">Done</a>
+    {% endif %}
     </p>
     {% for tag in task.tags.all %}
       <p>
