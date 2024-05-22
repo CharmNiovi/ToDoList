@@ -1,31 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
-  <a class="btn btn-primary" href="{% url 'todo_list:task-create' %}">Add new task</a>
-  {% for task in object_list %}
-    <p>
-      {{ task.content }}
-    </p>
-    <p>
-      {{ task.created_at }}
-    </p>
-    <p>
-      {{ task.deadline }}
-    </p>
-    <p>
-    {% if task.done %}
-      Done
-    <a href="{% url 'todo_list:task-switch-to-undone' task.pk %}" class="btn btn-primary">Undone</a>
-    {% else %}
-      Undone
-    <a href="{% url 'todo_list:task-switch-to-done' task.pk %}" class="btn btn-primary">Done</a>
-    {% endif %}
-    </p>
-    {% for tag in task.tags.all %}
-      <p>
-      {{ tag }}
-      </p>
-      {% endfor %}
-    <a class="btn btn-primary" href="{% url 'todo_list:task-update' task.pk %}">Update task</a>
-    <a class="btn btn-danger" href="{% url 'todo_list:task-delete' task.pk %}">Delete task</a>
-  {% endfor %}
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-9">
+        <h1 class="mb-4">TODO list</h1>
+        {% for task in object_list %}
+          <div class="todo-item">
+            <div class="d-flex justify-content-between">
+              <h5>
+                {{ task.content }}
+                {% if task.done %}
+                  <span class="text-success">Done</span>
+                  </h5>
+                  <div>
+                    <a href="{% url 'todo_list:task-switch-to-undone' task.pk %}">
+                      <button class="btn btn-secondary btn-sm">Undo</button>
+                    </a>
+                  </div>
+                {% else %}
+                  <span class="text-danger">Not done</span>
+                  </h5>
+                  <div>
+                    <a href="{% url 'todo_list:task-switch-to-done' task.pk %}">
+                      <button class="btn btn-success btn-sm">Complete</button>
+                    </a>
+                  </div>
+                {% endif %}
+            </div>
+            <p>Created: {{ task.created_at}} <span class="small text-danger">Deadline: {{ task.deadline }}</span></p>
+            <p>Tags: shop <a href="{% url 'todo_list:task-update' task.pk %}" class="ml-2">Update</a> <a href="{% url 'todo_list:task-delete' task.pk %}" class="ml-2">Delete</a></p>
+          </div>
+        {% endfor %}
+        <a class="btn btn-primary mt-4" href="{% url 'todo_list:task-create' %}">Add task</a>
+      </div>
+    </div>
+  </div>
 {% endblock %}
