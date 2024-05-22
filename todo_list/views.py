@@ -26,3 +26,19 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy("todo_list:task-list")
+
+
+class TaskSwitchToCompletedView(LoginRequiredMixin, generic.RedirectView):
+    url = reverse_lazy("todo_list:task-list")
+    
+    def get(self, request, *args, **kwargs):
+        Task.objects.filter(pk=self.kwargs["pk"]).update(done=True)
+        return super().get(request, *args, **kwargs)
+
+
+class TaskSwitchToUncompletedView(LoginRequiredMixin, generic.RedirectView):
+    url = reverse_lazy("todo_list:task-list")
+
+    def get(self, request, *args, **kwargs):
+        Task.objects.filter(pk=self.kwargs["pk"]).update(done=False)
+        return super().get(request, *args, **kwargs)
