@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-9">
+        <h1 class="mb-4">TODO list</h1>
+        {% for task in object_list %}
+          <div class="todo-item">
+            <div class="d-flex justify-content-between">
+              <h5>
+                {{ task.content }}
+                {% if task.done %}
+                  <span class="text-success">Done</span>
+                {% else %}
+                <span class="text-danger">Not done</span>
+                {% endif %}
+                  </h5>
+                  <div>
+                    <a href="{% url 'todo_list:task-switch' task.pk %}">
+                      {% if task.done %}
+                      <button class="btn btn-secondary btn-sm">Undo</button>
+                      {% else %}
+                        <button class="btn btn-success btn-sm">Complete</button>
+                      {% endif %}
+                    </a>
+                  </div>
+            </div>
+            <p>Created: {{ task.created_at }} <span class="small text-danger">Deadline: {{ task.deadline }}</span></p>
+            <p>Tags:
+              {% for tag in task.tags.all %}
+                {{ tag }}
+              {% endfor %}
+              <a href="{% url 'todo_list:task-update' task.pk %}" class="ml-2">Update</a> <a
+                      href="{% url 'todo_list:task-delete' task.pk %}" class="ml-2">Delete</a></p>
+          </div>
+        {% endfor %}
+        <a class="btn btn-primary mt-4" href="{% url 'todo_list:task-create' %}">Add task</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
