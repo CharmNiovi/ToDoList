@@ -11,21 +11,19 @@
                 {{ task.content }}
                 {% if task.done %}
                   <span class="text-success">Done</span>
-                  </h5>
-                  <div>
-                    <a href="{% url 'todo_list:task-switch-to-undone' task.pk %}">
-                      <button class="btn btn-secondary btn-sm">Undo</button>
-                    </a>
-                  </div>
                 {% else %}
-                  <span class="text-danger">Not done</span>
+                <span class="text-danger">Not done</span>
+                {% endif %}
                   </h5>
                   <div>
-                    <a href="{% url 'todo_list:task-switch-to-done' task.pk %}">
-                      <button class="btn btn-success btn-sm">Complete</button>
+                    <a href="{% url 'todo_list:task-switch' task.pk %}">
+                      {% if task.done %}
+                      <button class="btn btn-secondary btn-sm">Undo</button>
+                      {% else %}
+                        <button class="btn btn-success btn-sm">Complete</button>
+                      {% endif %}
                     </a>
                   </div>
-                {% endif %}
             </div>
             <p>Created: {{ task.created_at }} <span class="small text-danger">Deadline: {{ task.deadline }}</span></p>
             <p>Tags:

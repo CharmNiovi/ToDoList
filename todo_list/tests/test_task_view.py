@@ -86,23 +86,18 @@ class TaskDeleteViewTestView(TestCase):
         self.assertEqual(Task.objects.count(), 0)
 
 
-class TaskSwitchToCompletedViewTestCase(TestCase):
-    def setUp(self):
-        self.task = Task.objects.create(content="test")
+class TaskSwitchViewTestCase(TestCase):
 
-    def test_get(self):
+    def test_get_with_false(self):
+        task = Task.objects.create(content="test", done=False)
         self.client.get(reverse(
-            "todo_list:task-switch-to-done", kwargs={"pk": self.task.pk}
+            "todo_list:task-switch", kwargs={"pk": task.pk}
         ))
         self.assertTrue(Task.objects.first().done)
 
-
-class TaskSwitchToUncompletedViewTestCase(TestCase):
-    def setUp(self):
-        self.task = Task.objects.create(content="test", done=True)
-
-    def test_get(self):
+    def test_get_with_true(self):
+        task = Task.objects.create(content="test", done=True)
         self.client.get(reverse(
-            "todo_list:task-switch-to-undone", kwargs={"pk": self.task.pk}
+            "todo_list:task-switch", kwargs={"pk": task.pk}
         ))
         self.assertFalse(Task.objects.first().done)

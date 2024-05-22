@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -27,19 +28,11 @@ class TaskDeleteView(generic.DeleteView):
     success_url = reverse_lazy("todo_list:task-list")
 
 
-class TaskSwitchToCompletedView(generic.RedirectView):
+class TaskSwitchView(generic.RedirectView):
     url = reverse_lazy("todo_list:task-list")
     
     def get(self, request, *args, **kwargs):
-        Task.objects.filter(pk=self.kwargs["pk"]).update(done=True)
-        return super().get(request, *args, **kwargs)
-
-
-class TaskSwitchToUncompletedView(generic.RedirectView):
-    url = reverse_lazy("todo_list:task-list")
-
-    def get(self, request, *args, **kwargs):
-        Task.objects.filter(pk=self.kwargs["pk"]).update(done=False)
+        Task.objects.filter(pk=self.kwargs["pk"]).update(done=~F('done'))
         return super().get(request, *args, **kwargs)
 
 
