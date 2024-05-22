@@ -27,8 +27,13 @@
                   </div>
                 {% endif %}
             </div>
-            <p>Created: {{ task.created_at}} <span class="small text-danger">Deadline: {{ task.deadline }}</span></p>
-            <p>Tags: shop <a href="{% url 'todo_list:task-update' task.pk %}" class="ml-2">Update</a> <a href="{% url 'todo_list:task-delete' task.pk %}" class="ml-2">Delete</a></p>
+            <p>Created: {{ task.created_at }} <span class="small text-danger">Deadline: {{ task.deadline }}</span></p>
+            <p>Tags:
+              {% for tag in task.tags.all %}
+                {{ tag }}
+              {% endfor %}
+              <a href="{% url 'todo_list:task-update' task.pk %}" class="ml-2">Update</a> <a
+                      href="{% url 'todo_list:task-delete' task.pk %}" class="ml-2">Delete</a></p>
           </div>
         {% endfor %}
         <a class="btn btn-primary mt-4" href="{% url 'todo_list:task-create' %}">Add task</a>
