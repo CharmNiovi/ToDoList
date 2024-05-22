@@ -3,9 +3,6 @@
   <a class="btn btn-primary" href="{% url 'todo_list:task-create' %}">Add new task</a>
   {% for task in object_list %}
     <p>
-      {{ task.title }}
-    </p>
-    <p>
       {{ task.content }}
     </p>
     <p>
