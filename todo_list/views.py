@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic
 
-# Create your views here.
+from todo_list.models import Task
+
+
+class TaskListView(LoginRequiredMixin, generic.ListView):
+    queryset = Task.objects.prefetch_related("tags").order_by(
+        "done", "-created_at"
+    )
